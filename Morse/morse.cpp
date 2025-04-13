@@ -16,26 +16,30 @@ class Morse {
 		"-....", "--...", "---..", "----."
 	};
 public:
+	// Constructor
 	Morse(string text = "") : text(text) {};
 	void setText(string st) { text = st; }
 	string getText() const { return text; }
 	string getMorse() const { return morse; }
 	void translate() {
-		int length = text.length();
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i < text.length(); i++) {
+			// Checks if any character in string is part of alphabet, but uppercase
 			if (text[i] >= 'A' && text[i] <= 'Z') {
+				// Using ASCII table to get corresponding letter from Morse Alphabet
 				morse += morseAlphabet[(text[i] - 65)];
-				(i + 1 == length || text[i+1] == ' ') ? (morse += "") : (morse += " / ");
+				// Using Ternary Operator to make sure we won't end up with "/" in the end
+				(i + 1 == text.length() || text[i+1] == ' ') ? (morse += "") : (morse += " / ");
 			}
 			else if (text[i] >= 'a' && text[i] <= 'z') {
 				morse += morseAlphabet[(text[i] - 97)];
-				(i + 1 == length || text[i+1] == ' ') ? (morse += "") : (morse += " / ");
+				(i + 1 == text.length() || text[i+1] == ' ') ? (morse += "") : (morse += " / ");
 			}
 			else if(text[i] >= '0' && text[i]<='9') {
 				morse += morseNumbers[text[i] - 48];
-				(i + 1 == length || text[i + 1] == ' ') ? (morse += "") : (morse += " / ");
+				(i + 1 == text.length() || text[i + 1] == ' ') ? (morse += "") : (morse += " / ");
 			}
 			else if (text[i] == ' ') {
+				// If there is space between words, or numbers, to distinguish it I placed | between them
 				morse += " | ";
 			}
 		}
