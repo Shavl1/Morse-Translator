@@ -11,6 +11,10 @@ class Morse {
 		"--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-",
 		"-.--", "--.."
 	};
+	string morseNumbers[10] = {
+		"-----", ".----", "..---", "...--", "....-", ".....",
+		"-....", "--...", "---..", "----."
+	};
 public:
 	Morse(string text = "") : text(text) {};
 	void setText(string st) { text = st; }
@@ -27,6 +31,10 @@ public:
 				morse += morseAlphabet[(text[i] - 97)];
 				(i + 1 == length || text[i+1] == ' ') ? (morse += "") : (morse += " / ");
 			}
+			else if(text[i] >= '0' && text[i]<='9') {
+				morse += morseNumbers[text[i] - 48];
+				(i + 1 == length || text[i + 1] == ' ') ? (morse += "") : (morse += " / ");
+			}
 			else if (text[i] == ' ') {
 				morse += " | ";
 			}
@@ -35,11 +43,10 @@ public:
 };
 
 int main() {
-	Morse morse;
 	string text;
 	cout << "Enter the text: ";
 	getline(cin, text);
-	morse.setText(text);
+	Morse morse(text);
 	morse.translate();
-	cout << morse.getMorse();
+	cout << "The text in Morse Alphabet is:\n" << morse.getMorse() << endl;
 } 
